@@ -1,15 +1,22 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const { Project, ProjectDetail, ProjectStatus } = require('./model/projectSchema');
-const router = require('./route/projectRoute');
+const { Project, ProjectDetail, ProjectStatus } = require('./src/model/projectSchema');
+const router = require('./src/route/projectRoute');
+require('dotenv').config()
+
+console.log(process.env.MONGO_URL);
+console.log(process.env.PORT_DB);
 
 
 const app = express();
 app.use(express.json());
 
-const mongoURI = "mongodb://rootuser:rootpass@localhost:27017/janlopster?authSource=admin";
+const mongoURI = process.env.MONGO_URL;
 
-const PORT = 8002;
+const PORT = process.env.PORT_DB ;
+
+console.log(mongoURI);
+console.log(PORT);
 
 // routes
 app.use('/port', router);
