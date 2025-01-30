@@ -1,6 +1,7 @@
 require('dotenv').config()
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require("cors");
 const { Project, ProjectDetail, ProjectStatus } = require('./src/model/projectSchema');
 const router = require('./src/route/projectRoute');
 
@@ -15,9 +16,11 @@ const mongoURI = process.env.MONGO_URL;
 
 const PORT = process.env.PORT_DB ;
 
-console.log(mongoURI);
-console.log(PORT);
-
+app.use(cors({
+    origin: process.env.ORIGIN_FN,
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization"
+}))
 // routes
 app.use('/port', router);
 
